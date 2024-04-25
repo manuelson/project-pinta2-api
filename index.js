@@ -11,6 +11,16 @@ const socketIO = require('socket.io')(http, {
 app.use(cors())
 
 let users = []
+socketIO.use((socket, next) => {
+    const token = socket.handshake.auth.token;
+
+    // TODO: CHECK TOKEN FROM DB
+    if (token === 'valid') {
+        return next();
+    }
+    return next(new Error('authentication error'));
+});
+
 socketIO.on('connection', (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`)
 
@@ -21,6 +31,7 @@ socketIO.on('connection', (socket) => {
     })
 
     socket.on("message", data => {
+        console.log(data)
         socketIO.emit("messageResponse", data)
     })
 
