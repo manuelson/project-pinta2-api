@@ -2,15 +2,13 @@ const { PORT, CORS_URL } = require('./utils/secrets');
 const express = require("express")
 const app = express()
 const cors = require("cors")
-const http = require('http');
+const http = require('http').Server(app);
 const socketIO = require('socket.io')(http, {
     cors: {
         origin: CORS_URL
     }
 });
 app.use(cors())
-
-const httpServer = http.createServer(app);
 
 let users = []
 socketIO.on('connection', (socket) => {
@@ -39,6 +37,6 @@ app.get("/", (req, res) => {
 });
 
 
-httpServer.listen(PORT, () => {
+http.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
