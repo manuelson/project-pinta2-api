@@ -2,17 +2,17 @@ const { PORT, CORS_URL } = require('./utils/secrets');
 const express = require("express")
 const app = express()
 const cors = require("cors")
-const http = require('http').Server(app);
-console.log(CORS_URL)
+const http = require('http');
 const socketIO = require('socket.io')(http, {
     cors: {
         origin: CORS_URL
     }
 });
-
 app.use(cors())
+
+const httpServer = http.createServer(app);
+
 let users = []
-let messages = [];
 socketIO.on('connection', (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`)
 
@@ -39,6 +39,6 @@ app.get("/api", (req, res) => {
 });
 
 
-http.listen(PORT, () => {
+httpServer.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
