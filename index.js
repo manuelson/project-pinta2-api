@@ -35,6 +35,10 @@ socketIO.on('connection', (socket) => {
         socketIO.emit("messageResponse", data)
     })
 
+    socket.on("paths", data => {
+        socketIO.emit("pathsResponse", data)
+    })
+
     socket.on('disconnect', () => {
         console.log('🔥: A user disconnected');
         users = users.filter(user => user.socketID !== socket.id)
