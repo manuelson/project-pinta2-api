@@ -31,11 +31,11 @@ socketIO.on('connection', (socket) => {
     })
 
     socket.on("message", data => {
-        console.log(data)
         socketIO.emit("messageResponse", data)
     })
 
-    socket.on("paths", data => {
+    socket.on("canvas", data => {
+        console.log(data)
         socketIO.emit("pathsResponse", data)
     })
 
