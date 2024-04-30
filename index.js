@@ -36,7 +36,7 @@ socketIO.on('connection', (socket) => {
 
     socket.on("canvas", data => {
         console.log(data)
-        socketIO.emit("pathsResponse", data)
+        socketIO.emit("canvasResponse", data)
     })
 
     socket.on('disconnect', () => {
