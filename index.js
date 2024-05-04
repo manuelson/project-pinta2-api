@@ -30,8 +30,8 @@ socketIO.on('connection', (socket) => {
         socketIO.emit("newUserResponse", users)
     })
 
-    socket.on("message", data => {
-        socketIO.emit("messageResponse", data)
+    socket.on("chatMessage", data => {
+        socketIO.emit("chatMessageResponse", data)
     })
 
     socket.on("canvas", data => {
